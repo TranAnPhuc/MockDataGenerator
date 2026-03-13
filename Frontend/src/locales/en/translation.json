@@ -1,0 +1,47 @@
+{
+  "common": {
+    "logo": "Mock Data Generator",
+    "subtitle": "Generate mock data quickly for your applications",
+    "generate": "Generate Data",
+    "generating": "Generating...",
+    "downloadJson": "Download JSON",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "setup": {
+    "title": "Field Configuration",
+    "saveTemplate": "Save Template",
+    "templateName": "Template name...",
+    "fieldsCount": "{{count}} fields",
+    "columnName": "Column Name",
+    "dataType": "Data Type & Regex",
+    "addField": "Add Field",
+    "deleteRow": "Delete this row"
+  },
+  "options": {
+    "title": "Generation Options",
+    "rowCount": "Number of Rows",
+    "format": "Format",
+    "placeholders": {
+      "columnName": "Col name...",
+      "regex": "Regex (e.g. ####-????)"
+    }
+  },
+  "results": {
+    "title": "Results — {{count}} rows"
+  },
+  "sidebar": {
+    "title": "Saved Templates",
+    "empty": "No templates yet",
+    "refresh": "Refresh"
+  },
+  "messages": {
+    "atLeastOneField": "Please add at least one valid data field.",
+    "enterTemplateName": "Please enter a template name.",
+    "saveSuccess": "Template saved successfully!",
+    "saveError": "Error saving template.",
+    "loadError": "Error loading template: Invalid data.",
+    "apiError": "Cannot connect to API. Please check backend."
+  }
+}

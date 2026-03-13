@@ -68,6 +68,11 @@
             Export format: json, csv, sql. Default is json.
             </summary>
         </member>
+        <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.GenerationLocale">
+            <summary>
+            Locale for data generation (e.g., en, zh_TW). Default is en.
+            </summary>
+        </member>
         <member name="P:MockDataGenerator.API.Models.Template.SchemaConfig">
             <summary>
             JSON string describing the column configuration, e.g.:

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { generateService } from '../services/generateService'
 import styles from './SavedTemplatesSidebar.module.css'
 
@@ -7,6 +8,7 @@ interface SidebarProps {
 }
 
 export const SavedTemplatesSidebar = ({ onLoadTemplate }: SidebarProps) => {
+  const { t } = useTranslation()
   const [templates, setTemplates] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
 
@@ -16,7 +18,7 @@ export const SavedTemplatesSidebar = ({ onLoadTemplate }: SidebarProps) => {
       const data = await generateService.getTemplates()
       setTemplates(data)
     } catch (err) {
-      console.error('Lỗi khi tải danh sách mẫu:', err)
+      console.error(t('sidebar.loadError'), err)
     } finally {
       setLoading(false)
     }
@@ -29,16 +31,16 @@ export const SavedTemplatesSidebar = ({ onLoadTemplate }: SidebarProps) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.header}>
-        <h3>Mẫu đã lưu</h3>
-        <button onClick={fetchTemplates} className={styles.refreshBtn}>🔄</button>
+        <h3>{t('sidebar.title')}</h3>
+        <button onClick={fetchTemplates} className={styles.refreshBtn} title={t('sidebar.refresh')}>🔄</button>
       </div>
       
       {loading ? (
-        <p className={styles.loading}>Đang tải...</p>
+        <p className={styles.loading}>{t('common.loading')}</p>
       ) : (
         <div className={styles.list}>
           {templates.length === 0 ? (
-            <p className={styles.empty}>Chưa có mẫu nào</p>
+            <p className={styles.empty}>{t('sidebar.empty')}</p>
           ) : (
             templates.map(t => (
               <button 

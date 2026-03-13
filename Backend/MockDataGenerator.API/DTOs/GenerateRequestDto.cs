@@ -28,6 +28,11 @@ namespace MockDataGenerator.API.DTOs
         /// Export format: json, csv, sql. Default is json.
         /// </summary>
         public string FormatType { get; set; } = "json";
+
+        /// <summary>
+        /// Locale for data generation (e.g., en, zh_TW). Default is en.
+        /// </summary>
+        public string GenerationLocale { get; set; } = "en";
     }
 }
 

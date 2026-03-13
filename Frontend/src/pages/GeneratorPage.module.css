@@ -260,6 +260,34 @@
   outline: none;
 }
 
+.langSelector {
+  display: flex;
+  align-items: center;
+}
+
+.langDropdown {
+  padding: 0.5rem 0.8rem;
+  background: rgba(108, 99, 255, 0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.langDropdown:hover {
+  border-color: var(--color-primary);
+  background: rgba(108, 99, 255, 0.1);
+}
+
+.langDropdown:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.1);
+}
+
 .saveBtn {
   padding: 0.4rem 1rem;
   background: rgba(108, 99, 255, 0.1);

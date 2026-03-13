@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FieldRow } from '../components/FieldRow'
 import { DataTable } from '../components/DataTable'
 import { SavedTemplatesSidebar } from '../components/SavedTemplatesSidebar'
 import { generateService } from '../services/generateService'
-import type { FieldConfig, GenerateResponse, DataType } from '../types/template.types'
+import type { FieldConfig, GenerateResponse } from '../types/template.types'
 import styles from './GeneratorPage.module.css'
 
 const createField = (): FieldConfig => ({
@@ -13,6 +14,7 @@ const createField = (): FieldConfig => ({
 })
 
 const GeneratorPage = () => {
+  const { t, i18n } = useTranslation()
   const [fields, setFields] = useState<FieldConfig[]>([createField()])
   const [rowCount, setRowCount] = useState(10)
   const [formatType, setFormatType] = useState<'json' | 'csv' | 'sql'>('json')
@@ -20,6 +22,10 @@ const GeneratorPage = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [templateName, setTemplateName] = useState('')
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value)
+  }
 
   // ── field mutations ────────────────────────────────────────────────
   const addField = () => setFields(prev => [...prev, createField()])
@@ -41,7 +47,7 @@ const GeneratorPage = () => {
   const handleGenerate = async () => {
     const validFields = fields.filter(f => f.columnName.trim() !== '')
     if (validFields.length === 0) {
-      setError('Vui lòng thêm ít nhất một trường dữ liệu hợp lệ.')
+      setError(t('messages.atLeastOneField'))
       return
     }
 
@@ -54,6 +60,8 @@ const GeneratorPage = () => {
         fields: validFields.map(({ columnName, dataType, regexPattern }) => ({ columnName, dataType, regexPattern })),
         rowCount: Math.max(1, rowCount),
         formatType,
+        generationLocale: i18n.language.startsWith('zh') ? 'zh_TW' : 
+                i18n.language.startsWith('vi') ? 'vi' : 'en'
       })
       
       if (formatType === 'json') {
@@ -72,7 +80,7 @@ const GeneratorPage = () => {
       }
     } catch (err: unknown) {
       const msg =
-        err instanceof Error ? err.message : 'Không thể kết nối tới API. Vui lòng kiểm tra backend.'
+        err instanceof Error ? err.message : t('messages.apiError')
       setError(msg)
     } finally {
       setLoading(false)
@@ -93,7 +101,7 @@ const GeneratorPage = () => {
 
   const handleSaveTemplate = async () => {
     if (!templateName.trim()) {
-      setError('Vui lòng nhập tên mẫu.')
+      setError(t('messages.enterTemplateName'))
       return
     }
     try {
@@ -101,9 +109,9 @@ const GeneratorPage = () => {
         templateName,
         schemaConfig: JSON.stringify(fields)
       })
-      alert('Đã lưu mẫu thành công!')
+      alert(t('messages.saveSuccess'))
     } catch (err) {
-      setError('Lỗi khi lưu mẫu.')
+      setError(t('messages.saveError'))
     }
   }
 
@@ -117,7 +125,7 @@ const GeneratorPage = () => {
       setTemplateName(name)
       setError(null)
     } catch (err) {
-      setError('Lỗi khi tải mẫu: Dữ liệu không hợp lệ.')
+      setError(t('messages.loadError'))
     }
   }
 
@@ -130,9 +138,20 @@ const GeneratorPage = () => {
         <div className={styles.headerInner}>
           <div className={styles.logo}>
             <span className={styles.logoDot} />
-            Mock Data Generator
+            {t('common.logo')}
           </div>
-          <p className={styles.subtitle}>Tạo dữ liệu mẫu nhanh chóng cho ứng dụng của bạn</p>
+          <p className={styles.subtitle}>{t('common.subtitle')}</p>
+        </div>
+        <div className={styles.langSelector}>
+          <select 
+            value={i18n.language} 
+            onChange={handleLanguageChange}
+            className={styles.langDropdown}
+          >
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+            <option value="zh-tw">繁體中文</option>
+          </select>
         </div>
       </header>
 
@@ -142,26 +161,26 @@ const GeneratorPage = () => {
           <div className={styles.cardHeader}>
             <h2 className={styles.cardTitle}>
               <span className={styles.stepBadge}>1</span>
-              Cấu hình trường dữ liệu
+              {t('setup.title')}
             </h2>
             <div className={styles.templateActions}>
               <input 
                 type="text" 
-                placeholder="Tên mẫu..." 
+                placeholder={t('setup.templateName')} 
                 className={styles.templateInput} 
                 value={templateName}
                 onChange={e => setTemplateName(e.target.value)}
               />
-              <button className={styles.saveBtn} onClick={handleSaveTemplate}>Lưu mẫu</button>
+              <button className={styles.saveBtn} onClick={handleSaveTemplate}>{t('setup.saveTemplate')}</button>
             </div>
-            <span className={styles.fieldCount}>{fields.length} trường</span>
+            <span className={styles.fieldCount}>{t('setup.fieldsCount', { count: fields.length })}</span>
           </div>
 
           {/* Column labels */}
           <div className={styles.columnLabels}>
             <span />
-            <span>Tên cột</span>
-            <span>Loại dữ liệu & Regex</span>
+            <span>{t('setup.columnName')}</span>
+            <span>{t('setup.dataType')}</span>
             <span />
           </div>
 
@@ -181,7 +200,7 @@ const GeneratorPage = () => {
 
           <button className={styles.addBtn} onClick={addField}>
             <span className={styles.addIcon}>＋</span>
-            Thêm trường dữ liệu
+            {t('setup.addField')}
           </button>
         </section>
 
@@ -190,14 +209,14 @@ const GeneratorPage = () => {
           <div className={styles.cardHeader}>
             <h2 className={styles.cardTitle}>
               <span className={styles.stepBadge}>2</span>
-              Tuỳ chọn tạo dữ liệu
+              {t('options.title')}
             </h2>
           </div>
 
           <div className={styles.generateRow}>
             <div className={styles.inputGroup}>
               <label className={styles.label} htmlFor="rowCount">
-                Số lượng dòng
+                {t('options.rowCount')}
               </label>
               <input
                 id="rowCount"
@@ -212,7 +231,7 @@ const GeneratorPage = () => {
 
             <div className={styles.inputGroup}>
               <label className={styles.label} htmlFor="formatType">
-                Định dạng
+                {t('options.format')}
               </label>
               <select
                 id="formatType"
@@ -234,12 +253,12 @@ const GeneratorPage = () => {
               {loading ? (
                 <>
                   <span className={styles.spinner} />
-                  Đang tạo...
+                  {t('common.generating')}
                 </>
               ) : (
                 <>
                   <span>⚡</span>
-                  Tạo dữ liệu
+                  {t('common.generate')}
                 </>
               )}
             </button>
@@ -258,10 +277,10 @@ const GeneratorPage = () => {
             <div className={styles.cardHeader}>
               <h2 className={styles.cardTitle}>
                 <span className={styles.stepBadge}>3</span>
-                Kết quả — {result.length} dòng
+                {t('results.title', { count: result.length })}
               </h2>
               <button className={styles.downloadBtn} onClick={handleDownloadJSON}>
-                ⬇ Tải xuống JSON
+                ⬇ {t('common.downloadJson')}
               </button>
             </div>
 

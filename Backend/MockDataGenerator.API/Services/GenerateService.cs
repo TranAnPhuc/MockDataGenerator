@@ -7,7 +7,10 @@ namespace MockDataGenerator.API.Services
     {
         public object Generate(GenerateRequestDto request)
         {
-            var faker = new Faker("en");
+            if (request == null) return new List<Dictionary<string, object>>();
+            
+            var locale = string.IsNullOrWhiteSpace(request.GenerationLocale) ? "en" : request.GenerationLocale;
+            var faker = new Faker(locale);
             var result = new List<Dictionary<string, object>>(request.RowCount);
 
             for (int i = 0; i < request.RowCount; i++)
@@ -76,7 +79,7 @@ namespace MockDataGenerator.API.Services
             };
         }
 
-        private string ExportToCsv(List<Dictionary<string, object>> data, List<FieldConfigDto> fields)
+        private static string ExportToCsv(List<Dictionary<string, object>> data, List<FieldConfigDto> fields)
         {
             var sb = new System.Text.StringBuilder();
             var headers = fields.Select(f => f.ColumnName).ToList();
@@ -86,7 +89,7 @@ namespace MockDataGenerator.API.Services
             {
                 var values = headers.Select(h => {
                     var val = row[h]?.ToString() ?? "";
-                    if (val.Contains(",") || val.Contains("\"") || val.Contains("\n"))
+                    if (val.Contains(',') || val.Contains('\"') || val.Contains('\n'))
                         val = $"\"{val.Replace("\"", "\"\"")}\"";
                     return val;
                 });
@@ -95,7 +98,7 @@ namespace MockDataGenerator.API.Services
             return sb.ToString();
         }
 
-        private string ExportToSql(List<Dictionary<string, object>> data, List<FieldConfigDto> fields, string tableName)
+        private static string ExportToSql(List<Dictionary<string, object>> data, List<FieldConfigDto> fields, string tableName)
         {
             var sb = new System.Text.StringBuilder();
             var headers = fields.Select(f => f.ColumnName).ToList();

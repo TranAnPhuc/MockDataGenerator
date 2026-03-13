@@ -1,0 +1,47 @@
+{
+  "common": {
+    "logo": "Trình tạo dữ liệu mẫu",
+    "subtitle": "Tạo dữ liệu mẫu nhanh chóng cho ứng dụng của bạn",
+    "generate": "Tạo dữ liệu",
+    "generating": "Đang tạo...",
+    "downloadJson": "Tải xuống JSON",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công"
+  },
+  "setup": {
+    "title": "Cấu hình trường dữ liệu",
+    "saveTemplate": "Lưu mẫu",
+    "templateName": "Tên mẫu...",
+    "fieldsCount": "{{count}} trường",
+    "columnName": "Tên cột",
+    "dataType": "Loại dữ liệu & Regex",
+    "addField": "Thêm trường dữ liệu",
+    "deleteRow": "Xóa hàng này"
+  },
+  "options": {
+    "title": "Tuỳ chọn tạo dữ liệu",
+    "rowCount": "Số lượng dòng",
+    "format": "Định dạng",
+    "placeholders": {
+      "columnName": "Tên cột...",
+      "regex": "Regex (VD: ####-????)"
+    }
+  },
+  "results": {
+    "title": "Kết quả — {{count}} dòng"
+  },
+  "sidebar": {
+    "title": "Mẫu đã lưu",
+    "empty": "Chưa có mẫu nào",
+    "refresh": "Làm mới"
+  },
+  "messages": {
+    "atLeastOneField": "Vui lòng thêm ít nhất một trường dữ liệu hợp lệ.",
+    "enterTemplateName": "Vui lòng nhập tên mẫu.",
+    "saveSuccess": "Đã lưu mẫu thành công!",
+    "saveError": "Lỗi khi lưu mẫu.",
+    "loadError": "Lỗi khi tải mẫu: Dữ liệu không hợp lệ.",
+    "apiError": "Không thể kết nối tới API. Vui lòng kiểm tra backend."
+  }
+}

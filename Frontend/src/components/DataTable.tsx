@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const DataTable = ({ data }: Props) => {
-  if (!data.length) return null
+  if (typeof data === 'string' || !data.length) return null
 
   const columns = Object.keys(data[0])
 
@@ -24,7 +24,7 @@ export const DataTable = ({ data }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, i) => (
+          {data.map((row: Record<string, any>, i: number) => (
             <tr key={i} className={i % 2 === 0 ? styles.rowEven : styles.rowOdd}>
               <td className={styles.td}>{i + 1}</td>
               {columns.map(col => (

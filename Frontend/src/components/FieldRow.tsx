@@ -1,4 +1,5 @@
 import type { FieldConfig, DataType } from '../types/template.types'
+import { useTranslation } from 'react-i18next'
 import styles from './FieldRow.module.css'
 
 const DATA_TYPES: DataType[] = ['Name', 'Email', 'Phone', 'Address', 'Date', 'Custom Regex']
@@ -11,17 +12,19 @@ interface Props {
   canDelete: boolean
 }
 
-export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props) => (
-  <div className={styles.row}>
-    <span className={styles.index}>{index + 1}</span>
+export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props) => {
+  const { t } = useTranslation()
+  return (
+    <div className={styles.row}>
+      <span className={styles.index}>{index + 1}</span>
 
-    <input
-      className={styles.input}
-      type="text"
-      placeholder="Tên cột..."
-      value={field.columnName}
-      onChange={e => onChange(field.id, 'columnName', e.target.value)}
-    />
+      <input
+        className={styles.input}
+        type="text"
+        placeholder={t('options.placeholders.columnName')}
+        value={field.columnName}
+        onChange={e => onChange(field.id, 'columnName', e.target.value)}
+      />
 
     <div className={styles.typeGroup}>
       <select
@@ -40,21 +43,22 @@ export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props)
         <input
           className={styles.regexInput}
           type="text"
-          placeholder="Regex (VD: ####-????)"
+          placeholder={t('options.placeholders.regex')}
           value={field.regexPattern || ''}
           onChange={e => onChange(field.id, 'regexPattern', e.target.value)}
         />
       )}
     </div>
 
-    <button
-      className={styles.deleteBtn}
-      onClick={() => onDelete(field.id)}
-      disabled={!canDelete}
-      title="Xóa hàng này"
-      aria-label="delete row"
-    >
-      ✕
-    </button>
-  </div>
-)
+      <button
+        className={styles.deleteBtn}
+        onClick={() => onDelete(field.id)}
+        disabled={!canDelete}
+        title={t('setup.deleteRow')}
+        aria-label="delete row"
+      >
+        ✕
+      </button>
+    </div>
+  )
+}

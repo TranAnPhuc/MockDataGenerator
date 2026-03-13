@@ -34,6 +34,7 @@ export interface GenerateRequest {
   fields: Array<Omit<FieldConfig, 'id'>>
   rowCount: number
   formatType: 'json' | 'csv' | 'sql'
+  generationLocale?: string
 }
 
 /** The API returns an array of plain objects for JSON, or a string for CSV/SQL */

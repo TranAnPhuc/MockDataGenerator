@@ -1,0 +1,47 @@
+{
+  "common": {
+    "logo": "模擬數據生成器",
+    "subtitle": "為您的應用快速生成模擬數據",
+    "generate": "生成數據",
+    "generating": "生成中...",
+    "downloadJson": "下載 JSON",
+    "loading": "載入中...",
+    "error": "錯誤",
+    "success": "成功"
+  },
+  "setup": {
+    "title": "欄位配置",
+    "saveTemplate": "儲存模板",
+    "templateName": "模板名稱...",
+    "fieldsCount": "{{count}} 個欄位",
+    "columnName": "欄位名稱",
+    "dataType": "數據類型 & 正則表達式",
+    "addField": "新增欄位",
+    "deleteRow": "刪除此行"
+  },
+  "options": {
+    "title": "生成選項",
+    "rowCount": "數據筆數",
+    "format": "格式",
+    "placeholders": {
+      "columnName": "欄位名...",
+      "regex": "正則 (例: ####-????)"
+    }
+  },
+  "results": {
+    "title": "結果 — {{count}} 筆"
+  },
+  "sidebar": {
+    "title": "已儲存的模板",
+    "empty": "尚無模板",
+    "refresh": "重新整理"
+  },
+  "messages": {
+    "atLeastOneField": "請至少新增一個有效的數據欄位。",
+    "enterTemplateName": "請輸入模板名稱。",
+    "saveSuccess": "模板儲存成功！",
+    "saveError": "儲存模板時出錯。",
+    "loadError": "載入模板時出錯：數據無效。",
+    "apiError": "無法連接到 API。請檢查後端服務。"
+  }
+}
