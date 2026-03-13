@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MockDataGenerator.API</name>
+    </assembly>
+    <members>
+        <member name="M:MockDataGenerator.API.Controllers.GenerateController.Generate(MockDataGenerator.API.DTOs.GenerateRequestDto)">
+             <summary>
+             Generate mock data rows using Bogus.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /api/generate
+                 {
+                   "fields": ["FullName", "Email", "PhoneNumber", "Address"],
+                   "count": 100
+                 }
+            
+             Supported field types: FullName, FirstName, LastName, Email,
+             PhoneNumber, Address, City, Country, ZipCode, Company, JobTitle,
+             Username, Password, Url, Guid, Integer, Decimal, Boolean, Date,
+             Paragraph, Sentence, Word, AutoIncrement
+             </remarks>
+        </member>
+        <member name="T:MockDataGenerator.API.DTOs.FieldConfigDto">
+            <summary>
+            Represents a single field configuration sent from the frontend.
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.FieldConfigDto.ColumnName">
+            <summary>
+            The display name / column name (e.g. "Họ tên", "Email")
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.FieldConfigDto.DataType">
+            <summary>
+            The data type to use for generation (e.g. "Name", "Email", "Phone", "Address", "Date", "Custom Regex")
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.FieldConfigDto.RegexPattern">
+            <summary>
+            Optional regex pattern for "Custom Regex" type.
+            </summary>
+        </member>
+        <member name="T:MockDataGenerator.API.DTOs.GenerateRequestDto">
+            <summary>
+            Request payload for POST /api/generate.
+            Matches the frontend GenerateRequest type.
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.Fields">
+            <summary>
+            List of field configurations (columnName + dataType).
+            Supported dataType values: Name, Email, Phone, Address, Date,
+            FullName, FirstName, LastName, PhoneNumber, City, Country,
+            ZipCode, Company, JobTitle, Username, Password, Url, Guid,
+            Integer, Decimal, Boolean, Paragraph, Sentence, Word, AutoIncrement
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.RowCount">
+            <summary>
+            Number of rows to generate (1 – 10000). Mapped from frontend's "rowCount".
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.FormatType">
+            <summary>
+            Export format: json, csv, sql. Default is json.
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.Models.Template.SchemaConfig">
+            <summary>
+            JSON string describing the column configuration, e.g.:
+            [{"columnName":"FullName","dataType":"string","generator":"fullName"}, ...]
+            </summary>
+        </member>
+    </members>
+</doc>
