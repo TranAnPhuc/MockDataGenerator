@@ -19,5 +19,10 @@ namespace MockDataGenerator.API.DTOs
         /// Optional regex pattern for "Custom Regex" type.
         /// </summary>
         public string? RegexPattern { get; set; }
+
+        /// <summary>
+        /// Optional comma-separated list of values for "Custom List" type.
+        /// </summary>
+        public string? CustomListOptions { get; set; }
     }
 }

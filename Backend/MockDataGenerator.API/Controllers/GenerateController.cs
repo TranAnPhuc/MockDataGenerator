@@ -62,5 +62,27 @@ namespace MockDataGenerator.API.Controllers
 
             return Ok(data);
         }
+
+        [HttpPost("sql")]
+        [ProducesResponseType(typeof(List<Dictionary<string, object>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GenerateFromSql([FromBody] SqlGenerateRequestDto request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var data = _generateService.GenerateFromSql(request);
+
+            if (request.FormatType.ToLowerInvariant() == "sql")
+            {
+                if (data is string content)
+                {
+                    var bytes = System.Text.Encoding.UTF8.GetBytes(content);
+                    return File(bytes, "application/sql", $"mock-data-{DateTime.UtcNow:yyyyMMddHHmmss}.sql");
+                }
+            }
+
+            return Ok(data);
+        }
     }
 }

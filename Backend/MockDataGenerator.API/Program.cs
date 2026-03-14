@@ -52,6 +52,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
+
+// ── Root redirect ────────────────────────────────────────────────────────────
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.MapControllers();
 
 app.Run();

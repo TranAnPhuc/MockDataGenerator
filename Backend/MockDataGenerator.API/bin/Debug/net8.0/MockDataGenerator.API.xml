@@ -43,6 +43,11 @@
             Optional regex pattern for "Custom Regex" type.
             </summary>
         </member>
+        <member name="P:MockDataGenerator.API.DTOs.FieldConfigDto.CustomListOptions">
+            <summary>
+            Optional comma-separated list of values for "Custom List" type.
+            </summary>
+        </member>
         <member name="T:MockDataGenerator.API.DTOs.GenerateRequestDto">
             <summary>
             Request payload for POST /api/generate.
@@ -71,6 +76,11 @@
         <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.GenerationLocale">
             <summary>
             Locale for data generation (e.g., en, zh_TW). Default is en.
+            </summary>
+        </member>
+        <member name="P:MockDataGenerator.API.DTOs.GenerateRequestDto.DbDialect">
+            <summary>
+            SQL Dialect: sqlserver, mysql, postgresql, mariadb.
             </summary>
         </member>
         <member name="P:MockDataGenerator.API.Models.Template.SchemaConfig">

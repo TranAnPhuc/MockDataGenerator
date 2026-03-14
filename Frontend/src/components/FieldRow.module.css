@@ -12,6 +12,19 @@
   animation: slideIn 0.2s ease both;
 }
 
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .select {
+    flex: 1 !important;
+  }
+}
+
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: translateY(0); }

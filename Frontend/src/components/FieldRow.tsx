@@ -2,7 +2,12 @@ import type { FieldConfig, DataType } from '../types/template.types'
 import { useTranslation } from 'react-i18next'
 import styles from './FieldRow.module.css'
 
-const DATA_TYPES: DataType[] = ['Name', 'Email', 'Phone', 'Address', 'Date', 'Custom Regex']
+const DATA_TYPES: DataType[] = [
+  'Name', 'Email', 'Phone', 'Address', 'Date', 'DateTime',
+  'Custom Regex', 'Custom List', 'Avatar', 'ProductName', 'Price',
+  'CreditCard', 'Company', 'JobTitle', 'Department', 'Guid',
+  'Integer', 'Decimal', 'Boolean', 'IPv4', 'MACAddress'
+]
 
 interface Props {
   field: FieldConfig
@@ -19,7 +24,7 @@ export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props)
       <span className={styles.index}>{index + 1}</span>
 
       <input
-        className={styles.input}
+        className="input-field"
         type="text"
         placeholder={t('options.placeholders.columnName')}
         value={field.columnName}
@@ -28,7 +33,8 @@ export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props)
 
     <div className={styles.typeGroup}>
       <select
-        className={styles.select}
+        className="input-field"
+        style={{ width: 'auto', minWidth: '150px' }}
         value={field.dataType}
         onChange={e => onChange(field.id, 'dataType', e.target.value as DataType)}
       >
@@ -41,11 +47,21 @@ export const FieldRow = ({ field, index, onChange, onDelete, canDelete }: Props)
 
       {field.dataType === 'Custom Regex' && (
         <input
-          className={styles.regexInput}
+          className="input-field"
           type="text"
           placeholder={t('options.placeholders.regex')}
           value={field.regexPattern || ''}
           onChange={e => onChange(field.id, 'regexPattern', e.target.value)}
+        />
+      )}
+
+      {field.dataType === 'Custom List' && (
+        <input
+          className="input-field"
+          type="text"
+          placeholder="e.g. Gold, Silver, Bronze"
+          value={field.customListOptions || ''}
+          onChange={e => onChange(field.id, 'customListOptions', e.target.value)}
         />
       )}
     </div>

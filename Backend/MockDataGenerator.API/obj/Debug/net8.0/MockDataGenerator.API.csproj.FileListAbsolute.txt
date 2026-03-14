@@ -71,3 +71,4 @@ D:\Desktop\MockDataGenerator\Backend\MockDataGenerator.API\obj\Debug\net8.0\Mock
 D:\Desktop\MockDataGenerator\Backend\MockDataGenerator.API\obj\Debug\net8.0\MockDataGenerator.API.pdb
 D:\Desktop\MockDataGenerator\Backend\MockDataGenerator.API\obj\Debug\net8.0\MockDataGenerator.API.genruntimeconfig.cache
 D:\Desktop\MockDataGenerator\Backend\MockDataGenerator.API\obj\Debug\net8.0\ref\MockDataGenerator.API.dll
+D:\Desktop\MockDataGenerator\Backend\MockDataGenerator.API\obj\Debug\net8.0\MockDataGenerator.API.sourcelink.json

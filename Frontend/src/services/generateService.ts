@@ -17,4 +17,7 @@ export const generateService = {
 
   saveTemplate: (payload: any): Promise<any> =>
     axios.post('/api/templates', payload).then(r => r.data),
+
+  generateFromSql: (payload: { sqlScript: string, rowCount: number, formatType: string, dbDialect: string }): Promise<GenerateResponse> =>
+    axios.post<GenerateResponse>('/api/generate/sql', payload).then(r => r.data),
 }

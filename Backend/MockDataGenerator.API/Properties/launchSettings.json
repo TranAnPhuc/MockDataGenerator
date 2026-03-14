@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "MockDataGenerator.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:54019;http://localhost:54020"
+    }
+  }
+}

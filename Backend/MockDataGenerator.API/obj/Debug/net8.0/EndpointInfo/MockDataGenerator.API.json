@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Mock Data Generator API",
+    "description": "API to manage Templates and generate mock data with Bogus",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Generate": {
+      "post": {
+        "tags": [
+          "Generate"
+        ],
+        "summary": "Generate mock data rows using Bogus.",
+        "description": "Sample request:\r\n            \r\n    POST /api/generate\r\n    {\r\n      \"fields\": [\"FullName\", \"Email\", \"PhoneNumber\", \"Address\"],\r\n      \"count\": 100\r\n    }\r\n            \r\nSupported field types: FullName, FirstName, LastName, Email,\r\nPhoneNumber, Address, City, Country, ZipCode, Company, JobTitle,\r\nUsername, Password, Url, Guid, Integer, Decimal, Boolean, Date,\r\nParagraph, Sentence, Word, AutoIncrement",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "MockDataGenerator.API"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Templates": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Templates"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTemplateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTemplateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Templates/{id}": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTemplateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTemplateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Templates"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateTemplateDto": {
+        "required": [
+          "schemaConfig",
+          "templateName"
+        ],
+        "type": "object",
+        "properties": {
+          "templateName": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schemaConfig": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FieldConfigDto": {
+        "type": "object",
+        "properties": {
+          "columnName": {
+            "type": "string",
+            "description": "The display name / column name (e.g. \"Họ tên\", \"Email\")",
+            "nullable": true
+          },
+          "dataType": {
+            "type": "string",
+            "description": "The data type to use for generation (e.g. \"Name\", \"Email\", \"Phone\", \"Address\", \"Date\", \"Custom Regex\")",
+            "nullable": true
+          },
+          "regexPattern": {
+            "type": "string",
+            "description": "Optional regex pattern for \"Custom Regex\" type.",
+            "nullable": true
+          },
+          "customListOptions": {
+            "type": "string",
+            "description": "Optional comma-separated list of values for \"Custom List\" type.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a single field configuration sent from the frontend."
+      },
+      "GenerateRequestDto": {
+        "required": [
+          "fields"
+        ],
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldConfigDto"
+            },
+            "description": "List of field configurations (columnName + dataType).\r\nSupported dataType values: Name, Email, Phone, Address, Date,\r\nFullName, FirstName, LastName, PhoneNumber, City, Country,\r\nZipCode, Company, JobTitle, Username, Password, Url, Guid,\r\nInteger, Decimal, Boolean, Paragraph, Sentence, Word, AutoIncrement"
+          },
+          "rowCount": {
+            "maximum": 10000,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Number of rows to generate (1 – 10000). Mapped from frontend's \"rowCount\".",
+            "format": "int32"
+          },
+          "formatType": {
+            "type": "string",
+            "description": "Export format: json, csv, sql. Default is json.",
+            "nullable": true
+          },
+          "generationLocale": {
+            "type": "string",
+            "description": "Locale for data generation (e.g., en, zh_TW). Default is en.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request payload for POST /api/generate.\r\nMatches the frontend GenerateRequest type."
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "UpdateTemplateDto": {
+        "required": [
+          "schemaConfig",
+          "templateName"
+        ],
+        "type": "object",
+        "properties": {
+          "templateName": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schemaConfig": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

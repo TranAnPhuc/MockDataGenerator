@@ -20,7 +20,11 @@ export type UpdateTemplateDto = Partial<CreateTemplateDto>
 
 // ─── Generate API ───────────────────────────────────────────────────────────
 
-export type DataType = 'Name' | 'Email' | 'Phone' | 'Address' | 'Date' | 'Custom Regex'
+export type DataType = 
+  | 'Name' | 'Email' | 'Phone' | 'Address' | 'Date' | 'DateTime'
+  | 'Custom Regex' | 'Custom List' | 'Avatar' | 'ProductName' | 'Price'
+  | 'CreditCard' | 'Company' | 'JobTitle' | 'Department' | 'Guid'
+  | 'Integer' | 'Decimal' | 'Boolean' | 'IPv4' | 'MACAddress'
 
 export interface FieldConfig {
   /** Internal UI-only identifier */
@@ -28,6 +32,7 @@ export interface FieldConfig {
   columnName: string
   dataType: DataType
   regexPattern?: string
+  customListOptions?: string
 }
 
 export interface GenerateRequest {

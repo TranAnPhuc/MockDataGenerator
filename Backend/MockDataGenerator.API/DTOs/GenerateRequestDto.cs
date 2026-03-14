@@ -33,6 +33,11 @@ namespace MockDataGenerator.API.DTOs
         /// Locale for data generation (e.g., en, zh_TW). Default is en.
         /// </summary>
         public string GenerationLocale { get; set; } = "en";
+
+        /// <summary>
+        /// SQL Dialect: sqlserver, mysql, postgresql, mariadb.
+        /// </summary>
+        public string DbDialect { get; set; } = "sqlserver";
     }
 }
 
